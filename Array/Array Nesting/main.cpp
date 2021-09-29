@@ -1,37 +1,18 @@
-#include <iostream>
-#include <bits/stdc++.h>
-
-using namespace std;
-
-class Solution
-{
-public:
-    int arrayNesting(vector<int> &nums)
-    {
-        vector<bool> visited(nums.size());
-        int res = 0;
-        for (int i = 0; i < nums.size(); i++)
-        {
-            if (!visited[i])
-            {
-                int start = nums[i], count = 0;
-                do
-                {
-                    start = nums[start];
-                    count++;
-                    visited[start] = true;
-                } while (start != nums[i]);
-                res = max(res, count);
+class Solution {
+    public static int arrayNesting(int[] nums) {
+        int result = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int j = i, count = 0;
+            while (j < nums.length && nums[j] >= 0) {
+                int temp = j;
+                count++;
+                j = nums[j];
+                nums[temp] = -1;
             }
+            result = Math.max(result, count);
         }
-        return res;
+        return result;
     }
-};
-
-int main()
-{
-    Solution s;
-    vector<int> nums = {5, 4, 0, 3, 1, 6, 2};
-    cout << s.arrayNesting(nums) << endl;
+}
     return 0;
 }
